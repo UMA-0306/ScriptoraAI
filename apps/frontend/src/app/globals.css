@@ -1,0 +1,172 @@
+@import "tailwindcss";
+/* Fonts are loaded via next/font/google in layout.tsx */
+
+/* ─── Design Tokens ─────────────────────────────────────────────── */
+:root {
+  --bg-base:    #0c0c0f;
+  --bg-surface: #131316;
+  --bg-raised:  #1a1a1f;
+  --bg-hover:   #222228;
+  --border:     #2a2a32;
+  --border-faint: #1e1e26;
+
+  --text-primary:   #f0f0f5;
+  --text-secondary: #9898a6;
+  --text-muted:     #5a5a6a;
+
+  --accent-violet: #7c3aed;
+  --accent-violet-light: #8b5cf6;
+  --accent-violet-glow:  rgba(124, 58, 237, 0.25);
+  --accent-emerald: #10b981;
+  --accent-rose:    #f43f5e;
+  --accent-amber:   #f59e0b;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.6);
+  --shadow-glow: 0 0 24px var(--accent-violet-glow);
+}
+
+/* ─── Base Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a48; }
+
+/* ─── Tiptap Prose Styles ────────────────────────────────────────── */
+.ProseMirror {
+  font-family: var(--font-crimson, Georgia, serif);
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: var(--text-primary);
+  caret-color: var(--accent-violet-light);
+  min-height: 500px;
+  outline: none;
+}
+
+.ProseMirror p { margin-bottom: 1em; }
+
+.ProseMirror h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5em;
+  letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #e0e0ed;
+  margin-top: 1.5em;
+  margin-bottom: 0.4em;
+  font-family: 'Inter', sans-serif;
+}
+
+.ProseMirror h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 1.25em;
+  margin-bottom: 0.35em;
+  font-family: 'Inter', sans-serif;
+}
+
+.ProseMirror blockquote {
+  border-left: 3px solid var(--accent-violet);
+  padding-left: 1.25em;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: 1.5em 0;
+}
+
+.ProseMirror code {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.15em 0.4em;
+  font-family: 'Geist Mono', 'Fira Code', monospace;
+  font-size: 0.875em;
+  color: var(--accent-violet-light);
+}
+
+.ProseMirror pre {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25em;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.ProseMirror pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #e2e2f0;
+}
+
+.ProseMirror ul, .ProseMirror ol {
+  padding-left: 1.75em;
+  margin-bottom: 1em;
+}
+
+.ProseMirror li { margin-bottom: 0.35em; }
+
+.ProseMirror strong { color: #ffffff; font-weight: 600; }
+
+.ProseMirror em { font-style: italic; color: #c8c8d8; }
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: var(--text-muted);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ─── Custom Animations ─────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 12px var(--accent-violet-glow); }
+  50%       { box-shadow: 0 0 28px var(--accent-violet-glow); }
+}
+
+.animate-fade-in   { animation: fade-in 0.3s ease both; }
+.animate-slide-in  { animation: slide-in-left 0.25s ease both; }
+.animate-glow      { animation: glow-pulse 2.5s ease-in-out infinite; }
+
+/* ─── Utility Overrides ─────────────────────────────────────────── */
+.bg-base    { background: var(--bg-base); }
+.bg-surface { background: var(--bg-surface); }
+.bg-raised  { background: var(--bg-raised); }
+.text-muted { color: var(--text-muted); }

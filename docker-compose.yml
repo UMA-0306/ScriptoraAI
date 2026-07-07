@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: ankane/pgvector:v0.5.1 # PostgreSQL with pgvector pre-installed
+    container_name: scriptora-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: scriptora_user
+      POSTGRES_PASSWORD: scriptora_password
+      POSTGRES_DB: scriptora_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - scriptora-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: scriptora-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - scriptora-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  scriptora-network:
+    driver: bridge
